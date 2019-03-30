@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+
+# Trois types de variables : scalars(numbers, string), arrays(lists), hashes(dictionnaires)
+
+$num = 9;                                      # scalar
+$text = "it's $num";
+print $text;                                      # output : it is 9
+
+
+$a = "Hello";
+$b = "world";
+$c = $a." ".$b;                                # concatenation
+
+
+#-------------------------------------------------------------------------------
+
+my @array;                                      # array
+@numbers = (1..10);                             # égale à 12345678910
+
+$names = "Alex, Andrea, Anna";
+@names = split(',', $names);
+foreach (@names)
+{
+  print "$_\n";
+}
+
