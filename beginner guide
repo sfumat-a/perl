@@ -24,3 +24,50 @@ foreach (@names)
   print "$_\n";
 }
 
+
+#--------------------------------------------------------------------------------
+
+my @s = qw/ foo bar foobar FOO BAR FOOBAR / ;
+
+{
+    my $count = 0 ;
+    foreach my $e ( @s )
+    {
+        print $count++, ": $e\n"  ;
+    }
+}
+
+# $count is no longer in scope.
+
+
+# --------------------------------------------------------------------------------
+
+
+use HTML::TagTree;
+use strict;
+
+my $html = HTML::TagTree->new('html');
+$html->head->title('Fruits');
+
+my $table = $html->body->table();
+$table->tr->td('Fruits','colspan=6');
+$table->tr->td('February','colspan=6');
+my @fruits = qw(apples bananas coconut dates figs guava);
+my @rates = (10,20,30,40,50,60);
+my $tr_fruits = $table->tr;
+my $tr_rates = $table->tr;
+my $tr_available = $table->tr;
+for (my $col=0; $col<6; $col++) {
+   $tr_fruits->td($fruits[$col]);
+   $tr_rates->td($rates[$col]);
+   # Randomly make available
+   my $available = int(rand(1000)/500 + .5);
+   if ($available) {
+      $tr_available->td('Available','style=background-color:green');
+   } else {
+      $tr_available->td('Out of Stock','style=background-color:red');
+   }
+}
+print $html->print_html();
+
+
